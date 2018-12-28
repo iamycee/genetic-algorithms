@@ -1,2 +1,2 @@
 # genetic-algorithms
-Genetic algorithms implementation in Javascript
+Genetic algorithm implementations in Javascript
