@@ -18,7 +18,7 @@ class Population {
             this.population[i] = new DNA(this.target.length);
         }//create a population of DNAs
 
-        this.matingPool = [];
+        this.matingPool = [];  
         this.calcFitness();
     }
 

@@ -35,15 +35,15 @@ function setup(){
 	bestPhrase.class("best");
 
 	allPhrases = createP("All Phrases:");
-	allPhrases.position(600, 10);
+	allPhrases.position(600, 100);
 	allPhrases.class("all");
 	
 	stats = createP("Stats");
 	stats.class("stats");
 
-	target = "To be or not to be, that is the question";
+	target = "Sorry sir, but I am not a Neural Network ";
 	popmax = 2000;    //better a larger value for longer phrases
-	mutationRate = 0.0005; //empirical evidence: smaller the better. this is experimental, can't say anything yet.
+	mutationRate = 0.005; //empirical evidence: smaller the better. this is experimental, can't say anything yet.
 
 	//population object
 	population = new Population(target, mutationRate, popmax);
@@ -61,7 +61,6 @@ function draw(){
 
 	if(population.isFinished()){
 		console.log("!!!!!!!!!FINISHED!!!!!!!!!")
-		print("Time: ", millis()/1000.0, "seconds")
 		noLoop();
 	}
 

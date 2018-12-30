@@ -13,6 +13,9 @@ function newChar() {
     if (c === 63) c = 32; //replace ? with (space)
     if (c === 64) c = 46; //replace @ with .
     if (c === 94) c = 44; //replace ^ with ,
+    if (c === 58) c = 39; //replace : with '
+    if (c === 62) c = 35; //replace > with #
+    if (c === 96) c = 33; //replace ` with !
 
      return String.fromCharCode(c);
 
