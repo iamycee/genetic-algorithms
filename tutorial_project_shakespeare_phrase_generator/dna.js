@@ -9,9 +9,10 @@
 
 let num;   
 function newChar() {
-    let c = floor(random(63, 122));
-    if (c === 63) c = 32;
-    if (c === 64) c = 46;
+    let c = floor(random(48, 123));
+    if (c === 63) c = 32; //replace ? with (space)
+    if (c === 64) c = 46; //replace @ with .
+    if (c === 94) c = 44; //replace ^ with ,
 
      return String.fromCharCode(c);
 
