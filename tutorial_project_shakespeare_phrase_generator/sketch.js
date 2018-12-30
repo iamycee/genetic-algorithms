@@ -41,9 +41,9 @@ function setup(){
 	stats = createP("Stats");
 	stats.class("stats");
 
-	target = "To be or not to be";
-	popmax = 200;
-	mutationRate = 0.01;
+	target = "To be or not to be, that is the question";
+	popmax = 2000;    //better a larger value for longer phrases
+	mutationRate = 0.0005; //empirical evidence: smaller the better. this is experimental, can't say anything yet.
 
 	//population object
 	population = new Population(target, mutationRate, popmax);
@@ -53,7 +53,6 @@ function setup(){
 
 function draw(){
 
-
 	population.naturalSelection();  //create mating pool of the fittest
 	population.generate(); //create next generation
 	population.calcFitness(); //calculate fitness of each member
@@ -61,7 +60,8 @@ function draw(){
 	population.evaluate();
 
 	if(population.isFinished()){
-		println("Time: ", millis()/1000.0, "seconds")
+		console.log("!!!!!!!!!FINISHED!!!!!!!!!")
+		print("Time: ", millis()/1000.0, "seconds")
 		noLoop();
 	}
 
@@ -74,14 +74,15 @@ function displayInfo() {
   
 	bestPhrase.html("Best yet:<br>" + answer);
   
-	let statstext = "total generations:     " + population.getGenerations() + "<br>";
-	statstext += "average fitness:       " + nf(population.getAvgFitness()) + "<br>";
-	statstext += "total population:      " + popmax + "<br>";
-	statstext += "mutation rate:         " + floor(mutationRate * 100) + "%";
+	let statstext = "Total generations:     " + population.getGenerations() + "<br><br>";
+	statstext += "Average fitness:       	" + nf(population.getAvgFitness()) + "<br><br>";  //nf converts to string
+	statstext += "Total population:      " + popmax + "<br><br>";
+	statstext += "Mutation rate:         " + floor(mutationRate * 100) + "%<br><br>";
+	statstext += "Time taken:            " + (millis()/1000.0).toFixed(3) + "  seconds <br>";
   
 	stats.html(statstext);
-  
-	allPhrases.html("All phrases:<br>" + population.allPhrases())
+	
+	allPhrases.html("<strong>All phrases:</strong><br>" + population.allPhrases())
   }//displayInfo end
 
 

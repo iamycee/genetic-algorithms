@@ -25,7 +25,7 @@ class Population {
     //this is calcFitness of Population class
     calcFitness(){
         for (let i = 0; i<this.population.length; i++){
-            this.population[i].calcFitness(target);  //this is calcFitness of DNA object
+              this.population[i].calcFitness(target);  //this is calcFitness of DNA object
         }
     }
 
