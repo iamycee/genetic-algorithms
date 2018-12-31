@@ -21,7 +21,7 @@ class Rocket{
         if (this.recordDist < 1) this.recordDist = 1;   
         
         //reward finishing faster and getting closer
-        this.fitness (1 / this.finishTime * this.recordDist);
+        this.fitness = 1 / this.finishTime * this.recordDist;
 
         this.fitness = pow(this.fitness, 4);
 

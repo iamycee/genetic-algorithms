@@ -1,4 +1,4 @@
-
+                                                                                                                    
 
 class DNA{
     constructor(newgenes){

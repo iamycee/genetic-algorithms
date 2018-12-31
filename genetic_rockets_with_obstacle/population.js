@@ -22,7 +22,7 @@ class Population {
     }
 
     targetReached(){
-        for (let i = 0; i < this.population.length i++){
+        for (let i = 0; i < this.population.length; i++){
             if (this.population[i].hitTarget) return true;
         }
     }
@@ -51,21 +51,21 @@ class Population {
 
     reproduction(){
         for (var i = 0; i < this.population.length; i++){
-            var m = floor(random(this.matingPool.length));
-            var d = floor(random(this.matingPool.length));
+            let m = floor(random(this.matingPool.length));
+            let d = floor(random(this.matingPool.length));
             
-            var parentA = this.matingPool[m];
-            var parentB = this.matingPool[d];
+            let parentA = this.matingPool[m];
+            let parentB = this.matingPool[d];
 
-            var aGenes = parentA.getDNA();
-            var bGenes = parentB.getDNA();
+            let aGenes = parentA.getDNA();  // I don't know why this line is giving me a "Cannot read property of Undefined error"
+            let bGenes = parentB.getDNA();
             
-            var child = aGenes.crossover(bGenes);
+            let child = aGenes.crossover(bGenes);
             //mutate
             child.mutate(this.mutationRate);
 
             //add child in place of i
-            var location = createVector(width/2, height+20);
+            let location = createVector(width/2, height+20);
             this.population[i] = new Rocket(location, child, this.population.length);
         }
         this.generations++;
