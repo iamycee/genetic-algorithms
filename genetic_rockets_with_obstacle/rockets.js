@@ -1,7 +1,7 @@
 //This class defines the structure and function of the rockets
 
 class Rocket{   
-    constructor(loc, dna){
+    constructor(loc, dna, totalRockets){
         //physics
         this.acceleration = createVector();
         this.velocity = createVector();
@@ -10,32 +10,60 @@ class Rocket{
         this.r = 4;   //radius
         this.fitness = 0;
         this.dna = dna;
-
+        this.finishTime = 0;
+        this.recordDist = 10000;
         this.geneCounter = 0;
+        this.hitObstacle = false;
         this.hitTarget = false; //has the target planet been reached   
     }
     //every member of population needs a fitness function
     calcFitness(){
-        let d = dist(this.position.x, this.position.y, target.x, target.y);
-        this.fitness = 1/d;  //can square this   
+        if (this.recordDist < 1) this.recordDist = 1;   
+        
+        //reward finishing faster and getting closer
+        this.fitness (1 / this.finishTime * this.recordDist);
+
+        this.fitness = pow(this.fitness, 4);
+
+        if (this.hitObstacle) this.fitness *= 0.1;  // reduce fitness if obstacle is  hit
+        if (this.hitTarget) this.fitness *=2; // double the fitness if you finish
     }
 
-    run(){
-        this.checkTarget(); //target reached?
-        if (!this.hitTarget){
-            this.applyForce(this.dna.genes[this.geneCounter]);  //add acceleration to that geneLoc
+    run(os){
+        if (!this.hitObstacle && !this.hitTarget){
+            this.applyForce(this.dna.genes[this.geneCounter]);
             this.geneCounter = (this.geneCounter + 1) % this.dna.genes.length;
             this.update();
+            
+            this.obstacles(os);
         }
-        this.display();
+
+        if(!this.hitObstacle){
+            this.display();
+        }
     }
 
     checkTarget(){
         let d = dist(this.position.x, this.position.y, target.x, target.y);
-        if (d < 12){
+        if (d < this.recordDist) this.recordDist = d;
+
+        if (target.contains(this.position) && !this.hitTarget){
             this.hitTarget = true;
+        } else if (!this.hitTarget) {
+                this.finishTime++;
+            }
+ 
+    }
+
+    obstacles(os){
+        for (let i = 0; i < os.length; i++){
+            let obs = os[i];
+            if (obs.contains(this.position)){
+                this.hitObstacle =  true; 
+            }
         }
     }
+
 
     applyForce(f){
         this.acceleration.add(f);
