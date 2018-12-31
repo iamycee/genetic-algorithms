@@ -3,20 +3,27 @@
 class Population {
     constructor(m, num){
         this.mutationRate = m;
-        this.population = [];
+        this.population = new Array(num);
         this.matingPool = [];
         this.generations = 0;
 
         //create rockets
-        for (var i = 0; i < num; i++){
+        for (var i = 0; i < this.population.length; i++){
             var location = createVector(width/2, height+20);
-            this.population[i] = new Rocket(location, new DNA()); 
+            this.population[i] = new Rocket(location, new DNA(), this.population.length); 
         }
     }
 
-    live(){
+    live(os){
         for(var i= 0; i < this.population.length; i++){
-            this.population[i].run();
+            this.population[i].checkTarget();
+            this.population[i].run(os);
+        }
+    }
+
+    targetReached(){
+        for (let i = 0; i < this.population.length i++){
+            if (this.population[i].hitTarget) return true;
         }
     }
 
@@ -59,7 +66,7 @@ class Population {
 
             //add child in place of i
             var location = createVector(width/2, height+20);
-            this.population[i] = new Rocket(location, child);
+            this.population[i] = new Rocket(location, child, this.population.length);
         }
         this.generations++;
     }
